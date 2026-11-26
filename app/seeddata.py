@@ -22,9 +22,10 @@ def seed():
             student_number="20231002",
             faculty="Faculty of Engineering",
             major="Electrical and Electronics Engineering",
-            class_year=2,
+            class_year=2
         ),
         Student(
+
             first_name="Mehmet",
             last_name="Demir",
             student_number="20231003",
