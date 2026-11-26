@@ -1,16 +1,12 @@
 # HW1 — SQL Injection
-
 ## 1. Vulnerable feature
 - Feature: Student portal faculty search, `GET /students/by-faculty`.
-- Vulnerable location: An earlier working-tree version of `app/registration.py`, function `get_students_by_faculty`, interpolated `faculty` into a raw SQL string. The current working tree has the parameterized fix; no vulnerable commit or tag exists in Git history.
+- Vulnerable location: An earlier local version of `app/registration.py`, function `get_students_by_faculty`, interpolated the request's `faculty` value into a raw SQL string.
+- Vulnerable revision status: That version was not committed or tagged. The repository has no `hw1-vulnerable` tag.
+- Fixed commit: `c10a590414a7cff849773e10ae918413cfae0c16`.
 - Test environment: Localhost and seeded fake student records only.
-
 ## 2. Attacker
-An unauthenticated caller who can reach the student portal can submit a value to the faculty-search feature. Because the value is interpolated into SQL, the database may interpret part of that input as query syntax. The caller's goal is to read seeded student records outside the requested faculty; only fake records on localhost are used in this exercise. Align this description with your registered threat model before submission.
-
-## 3. Exploit
-- Reproduction: The author reports that a localhost request returned seeded students outside the selected faculty. The request was not re-run by the assistant. Add the exact localhost request and captured response from the author's own run; do not test external systems or use real records.
-- Regression test command: `python -m unittest discover -s tests/security -p "test_*.py" -v`
+An unauthenticated caller with access to the student portal can submit a value to the faculty-search feature. In the vulnerable version, the value was interpolated into SQL, so the database could interpret part of it as query syntax. The caller's goal is to read seeded student records outside the requested faculty; this exercise uses only localhost and fake data.
 - Expected result: Only records matching the selected faculty should be returned.
 - Actual result: The all-record result is author-reported and has no saved test artifact in this repository. The regression test passes on the fixed working tree and checks that SQL-looking input is treated as a literal value.
 
@@ -31,4 +27,4 @@ Potential unauthorized disclosure of student rows across faculty boundaries. The
 The endpoint has no authentication or authorization; hiding API documentation does not restrict direct access. Keep the service bound to localhost and use fake data for this exercise. A real deployment would also need authorization and access controls appropriate to student records.
 
 ## 8. Contribution
-- Solo submission: [Your name] — implementation, testing, and documentation.
+- Sedanur Parmaksız (05200000065): solo implementation, testing, and documentation.
